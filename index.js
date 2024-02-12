@@ -1,23 +1,29 @@
 import express from 'express'
+import path from 'path'
 
 // Create an express app
 const app = express()
 const router = express.Router()
-app.use(router)
+app.use(router, express.static('./static'))
 const port = +process.env.PORT || 4000
 
-// router
-//.httpmethod you want to use 
-// ('^/$|/express') for home to be displayed on both home and custom name for home 
-router.get('/', display, (req, res)=>{
-    // res.status(200).json({
-    //     msg: "You're home"
-    // })
-    res.json({
-            status: res.statusCode,
-            msg: "You're home"    
-    })
+// router express
+router.get('^/$|/express', display, (req, res)=>{
+    res.status(200).sendFile(path.resolve('./static/html/index.html'))
 })
+
+// // router
+// //.httpmethod you want to use 
+// // ('^/$|/express') for home to be displayed on both home and custom name for home 
+// router.get('/', display, (req, res)=>{
+//     // res.status(200).json({
+//     //     msg: "You're home"
+//     // })
+//     res.json({
+//             status: res.statusCode,
+//             msg: "You're home"    
+//     })
+// })
 
 //middleware
 function display(req,res,next){
